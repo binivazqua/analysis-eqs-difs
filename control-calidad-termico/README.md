@@ -8,12 +8,14 @@ Modelación del enfriamiento de una pieza de acero (Ley de Enfriamiento de Newto
 control-calidad-termico/
 ├── documentation/   # Situación problema, datos registrados, notas y referencias
 ├── analysis/        # Scripts de Python: regresión lineal, cálculo de k, EDO
-└── output/          # Resultados generados: gráficas, tablas, modelo final
+├── output/          # Gráficas y PDF final
+└── report/          # Fuente LaTeX del reporte
 ```
 
 - **documentation/** — enunciado del problema, tabla de datos registrados (pirómetro), bitácora de supuestos.
 - **analysis/** — código de análisis: transformación ln(T−T_amb), regresión lineal para obtener k, solución de la EDO.
-- **output/** — artefactos generados por los scripts: CSVs de resultados, gráficas (.png), reporte final.
+- **output/** — gráficas generadas y `reporte_control_calidad_termico.pdf` listo para entregar.
+- **report/** — fuente LaTeX, logo y archivos temporales de compilación ignorados por Git.
 
 ## Datos base
 
