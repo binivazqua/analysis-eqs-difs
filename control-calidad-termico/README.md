@@ -24,4 +24,6 @@ Ver `documentation/datos_registrados.csv`.
 
 ## Equipo
 
-_(agregar nombres de los integrantes)_
+Biniza Verónica Vázquez Moreno | A01737294
+Joaquín Rosales González | A01771481
+Flor Denisse Hinojosa Hernández
