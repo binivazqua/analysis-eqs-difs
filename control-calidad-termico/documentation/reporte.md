@@ -31,9 +31,11 @@ Partiendo de la solución física de la Ley de Enfriamiento de Newton:
 $$T(t) - T_{\text{amb}} = C e^{-kt}$$
 
 Aplicando logaritmo natural a ambos lados de la igualdad:
+
 $$\ln(T(t) - T_{\text{amb}}) = \ln(C e^{-kt})$$
 
 Por propiedades algebraicas de los logaritmos ($\ln(a \cdot b) = \ln(a) + \ln(b)$ y $\ln(e^x) = x$):
+
 $$\ln(T(t) - T_{\text{amb}}) = \ln(C) - kt$$
 
 Al mapear esta estructura a la forma de una recta $y = mx + b$:
@@ -56,10 +58,13 @@ $$\ln(T - 18.0) = -0.16421 t + 4.36938$$
 * **Coeficiente de determinación ($R^2$):** $> 0.998$ (alta precisión del ajuste)
 
 Transformando los coeficientes numéricos a las constantes físicas:
+
 $$k_{\text{num}} = -m = 0.16421 \text{ min}^{-1}$$
+
 $$C_{\text{num}} = e^b = e^{4.36938} \approx 78.995 ^\circ\text{C}$$
 
 El modelo empírico de temperatura estimado resulta:
+
 $$T_{\text{num}}(t) = 18.0 + 78.995 e^{-0.16421 t}$$
 
 ---
@@ -82,6 +87,7 @@ $$\int \frac{1}{T - T_{\text{amb}}} \, dT = \int -k \, dt$$
 $$\ln|T - T_{\text{amb}}| = -kt + C_1$$
 
 **Paso 3: Despeje de $T(t)$**
+
 $$|T - T_{\text{amb}}| = e^{-kt + C_1} = e^{C_1} e^{-kt}$$
 
 Considerando $T(t) > T_{\text{amb}}$, se retira el valor absoluto y se define $C = e^{C_1}$:
@@ -89,7 +95,12 @@ Considerando $T(t) > T_{\text{amb}}$, se retira el valor absoluto y se define $C
 $$T(t) = T_{\text{amb}} + C e^{-kt}$$
 
 **Paso 4: Evaluación de la condición inicial $T(0) = 97.0^\circ\text{C}$ con $T_{\text{amb}} = 18.0^\circ\text{C}$**
+
 $$97.0 = 18.0 + C e^{-k(0)} \implies C = 97.0 - 18.0 = 79.0^\circ\text{C}$$
+
+**Paso 5: Solución particular analítica exacta**
+
+$$T_{\text{analítico}}(t) = 18.0 + 79.0 e^{-k t}$$
 
 **Paso 5: Solución particular analítica exacta**
 $$T_{\text{analítico}}(t) = 18.0 + 79.0 e^{-k t}$$
@@ -127,26 +138,33 @@ Al comparar la constante teórica $C = 79.0 ^\circ\text{C}$ con la constante num
 Si la temperatura ambiental del taller aumenta a $T_{\text{amb}} = 24.0 ^\circ\text{C}$:
 
 #### Solución Analítica
-1. **Nueva EDO:**
-   $$\frac{dT}{dt} = -k(T - 24.0)$$
 
-2. **Estructura de la solución:**
-   $$T(t) = 24.0 + C_{\text{nuevo}} e^{-kt}$$
+**Paso 1: Nueva EDO**
+$$\frac{dT}{dt} = -k(T - 24.0)$$
 
-3. **Determinación de $C_{\text{nuevo}}$ con $T(0) = 97.0 ^\circ\text{C}$:**
-   $$97.0 = 24.0 + C_{\text{nuevo}} \implies C_{\text{nuevo}} = 73.0 ^\circ\text{C}$$
+**Paso 2: Estructura de la solución**
+$$T(t) = 24.0 + C_{\text{nuevo}} e^{-kt}$$
 
-4. **Nueva función de temperatura:**
-   $$T(t) = 24.0 + 73.0 e^{-0.16421 t}$$
+**Paso 3: Determinación de $C_{\text{nuevo}}$ con $T(0) = 97.0 ^\circ\text{C}$**
 
-#### Cálculo del nuevo tiempo para alcanzarlos $27.0 ^\circ\text{C}$:
+$$97.0 = 24.0 + C_{\text{nuevo}} \implies C_{\text{nuevo}} = 73.0 ^\circ\text{C}$$
+
+**Paso 4: Nueva función de temperatura**
+$$T(t) = 24.0 + 73.0 e^{-0.16421 t}$$
+
+#### Cálculo del nuevo tiempo para alcanzar los $27.0 ^\circ\text{C}$:
+
 $$27.0 = 24.0 + 73.0 e^{-0.16421 t}$$
+
 $$3.0 = 73.0 e^{-0.16421 t}$$
+
 $$\ln\left(\frac{3}{73}\right) = -0.16421 t$$
+
 $$-3.19184 = -0.16421 t$$
+
 $$t = \frac{-3.19184}{-0.16421} \approx 19.44 \text{ minutos}$$
 
- Al subir la temperatura ambiente a $24.0 ^\circ\text{C}$, el gradiente térmico disminuye, extendiendo el tiempo para alcanzar los $27.0 ^\circ\text{C}$ de **13.23 minutos a 19.44 minutos**.
+Al subir la temperatura ambiente a $24.0 ^\circ\text{C}$, el gradiente térmico disminuye, extendiendo el tiempo para alcanzar los $27.0 ^\circ\text{C}$ de **13.23 minutos a 19.44 minutos**.
 
 ---
 
