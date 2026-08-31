@@ -68,40 +68,51 @@ $$T_{\text{num}}(t) = 18.0 + 78.995 e^{-0.16421 t}$$
 
 #### Planteamiento de la Ecuación Diferencial
 La tasa de cambio de la temperatura del cuerpo es proporcional a la diferencia entre su temperatura actual y la del ambiente:
+
 $$\frac{dT}{dt} = -k(T - T_{\text{amb}})$$
 
 #### Solución por Separación de Variables
-1. **Separación de términos:**
-   $$\frac{dT}{T - T_{\text{amb}}} = -k \, dt$$
 
-2. **Integración indefinida en ambos miembros:**
-   $$\int \frac{1}{T - T_{\text{amb}}} \, dT = \int -k \, dt$$
-   $$\ln|T - T_{\text{amb}}| = -kt + C_1$$
+**Paso 1: Separación de términos**
+$$\frac{dT}{T - T_{\text{amb}}} = -k \, dt$$
 
-3. **Despeje de $T(t)$:**
-   $$|T - T_{\text{amb}}| = e^{-kt + C_1} = e^{C_1} e^{-kt}$$
-   Considerando $T(t) > T_{\text{amb}}$, se retira el valor absoluto y se define $C = e^{C_1}$:
-   $$T(t) = T_{\text{amb}} + C e^{-kt}$$
+**Paso 2: Integración indefinida en ambos miembros**
+$$\int \frac{1}{T - T_{\text{amb}}} \, dT = \int -k \, dt$$
 
-4. **Evaluación de la condición inicial $T(0) = 97.0 ^\circ\text{C}$ con $T_{\text{amb}} = 18.0 ^\circ\text{C}$:**
-   $$97.0 = 18.0 + C e^{-k(0)} \implies C = 97.0 - 18.0 = 79.0 ^\circ\text{C}$$
+$$\ln|T - T_{\text{amb}}| = -kt + C_1$$
 
-5. **Solución particular analítica exactas:**
-   $$T_{\text{analítico}}(t) = 18.0 + 79.0 e^{-k t}$$
+**Paso 3: Despeje de $T(t)$**
+$$|T - T_{\text{amb}}| = e^{-kt + C_1} = e^{C_1} e^{-kt}$$
 
-#### Predicción del Tiempo para Alcanzar la Temperatura Segura ($27.0 ^\circ\text{C}$)
-Sustituyendo $T(t) = 27.0 ^\circ\text{C}$ y el coeficiente $k = 0.16421 \text{ min}^{-1}$:
+Considerando $T(t) > T_{\text{amb}}$, se retira el valor absoluto y se define $C = e^{C_1}$:
+
+$$T(t) = T_{\text{amb}} + C e^{-kt}$$
+
+**Paso 4: Evaluación de la condición inicial $T(0) = 97.0^\circ\text{C}$ con $T_{\text{amb}} = 18.0^\circ\text{C}$**
+$$97.0 = 18.0 + C e^{-k(0)} \implies C = 97.0 - 18.0 = 79.0^\circ\text{C}$$
+
+**Paso 5: Solución particular analítica exacta**
+$$T_{\text{analítico}}(t) = 18.0 + 79.0 e^{-k t}$$
+
+#### Predicción del Tiempo para Alcanzar la Temperatura Segura ($27.0^\circ\text{C}$)
+
+Sustituyendo $T(t) = 27.0^\circ\text{C}$ y el coeficiente $k = 0.16421\text{ min}^{-1}$:
+
 $$27.0 = 18.0 + 79.0 e^{-0.16421 t}$$
+
 $$9.0 = 79.0 e^{-0.16421 t}$$
+
 $$\frac{9.0}{79.0} = e^{-0.16421 t}$$
 
 Aplicando logaritmo natural:
+
 $$\ln\left(\frac{9}{79}\right) = -0.16421 t$$
+
 $$-2.17215 = -0.16421 t$$
-$$t = \frac{-2.17215}{-0.16421} \approx 13.23 \text{ minutos}$$
+
+$$t = \frac{-2.17215}{-0.16421} \approx 13.23\text{ minutos}$$
 
 La pieza alcanza la temperatura segura de trabajo a los **13.23 minutos** ($\approx 13$ minutos y 14 segundos).
-
 ---
 
 ### 3. Explicación de Discrepancias entre lo Numérico y lo Analítico
