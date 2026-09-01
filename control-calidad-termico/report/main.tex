@@ -132,7 +132,8 @@ Flor Denisse Hinojosa Hernández\\[0.30cm]
 
 En este ejercicio modelamos el enfriamiento de un eje de acero después de salir del horno de templado. La pieza comienza a \(97\,^{\circ}\mathrm{C}\) y se deja enfriar en un taller que se mantiene a \(18\,^{\circ}\mathrm{C}\). Para manipularla, se toma \(27\,^{\circ}\mathrm{C}\) como temperatura segura.
 
-Buscamos obtener el coeficiente de enfriamiento \(k\) a partir de 21 temperaturas simuladas, registradas cada minuto durante los primeros 20 minutos. Con ese valor construimos la función \(T(t)\), calculamos el tiempo necesario para llegar a \(27\,^{\circ}\mathrm{C}\) y comprobamos el resultado resolviendo la ecuación diferencial. También analizamos qué cambia si el taller está a \(24\,^{\circ}\mathrm{C}\).
+Buscamos obtener el coeficiente de enfriamiento k a partir de 21 temperaturas simuladas, registradas cada
+minuto durante los primeros 20 minutos. Con ese valor construimos la función \(T(t)\), calculamos el tiempo necesario para llegar a \(27\,^{\circ}\mathrm{C}\) y comprobamos el resultado resolviendo la ecuación diferencial. También analizamos qué cambia si el taller está a \(24\,^{\circ}\mathrm{C}\).
 
 \subsection{Variables, supuestos y método}
 
@@ -161,9 +162,14 @@ Primero linealizamos los datos con \(\ln(T-\Tamb)\) para estimar \(k\). Después
 
 \subsection{Datos registrados}
 
-El enunciado pide trabajar con datos generados para simular las lecturas de un pirómetro. Usamos los 21 valores de la Tabla~\ref{tab:datos}; no son mediciones tomadas en una planta. La temperatura baja de \(97.0\,^{\circ}\mathrm{C}\) a \(20.6\,^{\circ}\mathrm{C}\) en 20 minutos. Como a los 13 minutos todavía está en \(27.6\,^{\circ}\mathrm{C}\) y a los 14 minutos ya bajó a \(25.8\,^{\circ}\mathrm{C}\), desde la tabla esperamos que el cruce por \(27\,^{\circ}\mathrm{C}\) ocurra entre esos dos tiempos.
+Buscamos obtener el coeficiente de enfriamiento \(k\) a partir de 21 temperaturas
+simuladas\footnote{Los datos fueron generados con asistencia de Claude
+(Anthropic, 2025), a partir de una curva de enfriamiento exponencial con
+\(k \approx 0.164\,\text{min}^{-1}\) y ruido aleatorio de \(\pm 0.2\)–\(0.5\,^{\circ}\mathrm{C}\)
+para simular variabilidad realista de un pirómetro óptico.}, registradas cada
+minuto durante los primeros 20 minutos.
 
-\begin{table}[H]
+
     \centering
     \caption{Datos simulados usados para modelar el enfriamiento.}
     \label{tab:datos}
