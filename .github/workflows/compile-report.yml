@@ -15,14 +15,14 @@ jobs:
       image: texlive/texlive:latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Compile LaTeX
         run: latexmk -pdf -interaction=nonstopmode -outdir=build main.tex
         working-directory: control-calidad-termico/report
 
       - name: Upload PDF artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: reporte
           path: control-calidad-termico/report/build/main.pdf
