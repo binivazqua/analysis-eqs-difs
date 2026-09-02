@@ -130,10 +130,10 @@ Flor Denisse Hinojosa Hernández\\[0.30cm]
 
 \subsection{Contexto y objetivo}
 
-En este ejercicio modelamos el enfriamiento de un eje de acero después de salir del horno de templado. La pieza comienza a \(97\,^{\circ}\mathrm{C}\) y se deja enfriar en un taller que se mantiene a \(18\,^{\circ}\mathrm{C}\). Para manipularla, se toma \(27\,^{\circ}\mathrm{C}\) como temperatura segura.
+En este ejercicio se modeló el enfriamiento de un eje de acero después de salir del horno de templado. La pieza comienza a \(97\,^{\circ}\mathrm{C}\) y se deja enfriar en un taller que se mantiene a \(18\,^{\circ}\mathrm{C}\). Para manipularla, se toma \(27\,^{\circ}\mathrm{C}\) como temperatura segura.
 
-Buscamos obtener el coeficiente de enfriamiento k a partir de 21 temperaturas simuladas, registradas cada
-minuto durante los primeros 20 minutos. Con ese valor construimos la función \(T(t)\), calculamos el tiempo necesario para llegar a \(27\,^{\circ}\mathrm{C}\) y comprobamos el resultado resolviendo la ecuación diferencial. También analizamos qué cambia si el taller está a \(24\,^{\circ}\mathrm{C}\).
+Se buscó obtener el coeficiente de enfriamiento \(k\) a partir de 21 temperaturas simuladas, registradas cada
+minuto durante los primeros 20 minutos. Con ese valor se construyó la función \(T(t)\), se calculó el tiempo necesario para llegar a \(27\,^{\circ}\mathrm{C}\) y se comprobó el resultado resolviendo la ecuación diferencial. También se analizó qué cambia si el taller está a \(24\,^{\circ}\mathrm{C}\).
 
 \subsection{Variables, supuestos y método}
 
@@ -154,9 +154,9 @@ minuto durante los primeros 20 minutos. Con ese valor construimos la función \(
     \end{tabular}
 \end{table}
 
-Usamos la ley de enfriamiento de Newton porque relaciona la rapidez de enfriamiento con la diferencia entre la temperatura de la pieza y la del ambiente \citep{incropera2017}. Para aplicarla suponemos que el taller conserva una temperatura constante, que \(T(t)\) representa una temperatura promedio de todo el eje y que \(k\) no cambia durante la prueba.
+Se usó la ley de enfriamiento de Newton porque relaciona la rapidez de enfriamiento con la diferencia entre la temperatura de la pieza y la del ambiente \citep{incropera2017}. Para aplicarla, se supone que el taller conserva una temperatura constante, que \(T(t)\) representa una temperatura promedio de todo el eje y que \(k\) no cambia durante la prueba.
 
-Primero linealizamos los datos con \(\ln(T-\Tamb)\) para estimar \(k\). Después resolvemos la ecuación diferencial con la condición inicial exacta y comparamos los tiempos para verificar que ambos procedimientos describan el mismo enfriamiento.
+Primero se linealizaron los datos con \(\ln(T-\Tamb)\) para estimar \(k\). Después se resolvió la ecuación diferencial con la condición inicial exacta y se compararon los tiempos para verificar que ambos procedimientos describan el mismo enfriamiento.
 
 \section{Desarrollo}
 
@@ -169,7 +169,7 @@ simuladas\footnote{Los datos fueron generados con asistencia de Claude
 para simular variabilidad realista de un pirómetro óptico.}, registradas cada
 minuto durante los primeros 20 minutos.
 
-
+\begin{table}[H]
     \centering
     \caption{Datos simulados usados para modelar el enfriamiento.}
     \label{tab:datos}
@@ -247,6 +247,8 @@ de donde obtenemos
 
 El valor \(R^2=0.999206\) significa que la recta explica cerca del \(99.92\,\%\) de la variación de \(\ln(T-18)\) en estos 21 datos. Es un ajuste muy cercano, pero no prueba por sí solo que el modelo describa cualquier proceso de templado; solo indica qué tan bien funciona la relación linealizada para este conjunto simulado.
 
+Vale la pena señalar una consideración estadística sobre este procedimiento: ajustar una recta sobre una variable linealizada mediante logaritmos introduce un sesgo de escala. La transformación logarítmica comprime las diferencias cuando \(T\) está lejos de \(\Tamb\) (mediciones iniciales) y las amplifica cuando \(T\) se acerca a \(\Tamb\) (mediciones finales), de modo que los puntos donde la pieza ya está casi fría pesan proporcionalmente más en el ajuste de la recta que los puntos iniciales.
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.64\textwidth]{../output/regresion_lineal.png}
@@ -301,13 +303,15 @@ Conservamos \(k=0.166700\,\mathrm{min}^{-1}\), porque ese es el coeficiente que 
        \approx 13.03\ \text{minutos}.
 \end{align*}
 
-La regresión da \(13.14\) minutos y la comprobación analítica da \(13.03\) minutos. La diferencia es
+El resultado obtenido mediante la regresión es de \(13.14\) minutos, y la comprobación analítica da \(13.03\) minutos. La diferencia es
 
 \begin{equation*}
     \Delta t=|13.14-13.03|=0.11\ \text{min}\approx6.6\ \text{s},
 \end{equation*}
 
 equivalente al \(0.84\,\%\) del tiempo analítico. La diferencia aparece principalmente porque la regresión ajusta tanto la pendiente como la intersección para acercarse a los 21 datos y obtiene \(C_{\mathrm{num}}=80.4793\,^{\circ}\mathrm{C}\). En la comprobación fijamos \(C=79\,^{\circ}\mathrm{C}\) para respetar exactamente \(T(0)=97\,^{\circ}\mathrm{C}\). El redondeo y la variación incluida en los datos simulados también afectan el ajuste.
+
+Esta discrepancia no es un error de cálculo, sino una consecuencia de comparar dos modelos con distinto origen para cada constante. En el modelo analítico, \(C=79\,^{\circ}\mathrm{C}\) se deriva de forma exacta para satisfacer \(T(0)=97\,^{\circ}\mathrm{C}\). En el modelo numérico, en cambio, \(k=0.166700\,\mathrm{min}^{-1}\) proviene de la regresión, cuyo algoritmo ajusta simultáneamente pendiente e intersección para minimizar el error cuadrático global de las 21 mediciones; eso produce \(C_{\mathrm{num}}=80.4793\,^{\circ}\mathrm{C}\), equivalente a una temperatura inicial implícita de \(98.48\,^{\circ}\mathrm{C}\) en vez de los \(97\,^{\circ}\mathrm{C}\) reales. Para hacer que estos resultados sean compatibles, sería necesario forzar el intercepto de la regresión en \(b=\ln(97-18)=\ln(79)\) y ajustar solo la pendiente.
 
 Cualitativamente, los dos modelos se comportan igual: la temperatura disminuye mientras \(T>18\,^{\circ}\mathrm{C}\), pero cada vez lo hace más despacio porque la diferencia térmica se reduce. Ambas soluciones se acercan a \(18\,^{\circ}\mathrm{C}\) sin seguir bajando indefinidamente por debajo del ambiente. Esa coincidencia, junto con la diferencia de solo 6.6 segundos, muestra que los resultados numérico y analítico son consistentes para estos datos.
 
@@ -319,7 +323,7 @@ Para estudiar el taller a \(24\,^{\circ}\mathrm{C}\), conservamos \(k=0.166700\,
     \frac{dT}{dt}=-0.166700(T-24).
 \end{equation*}
 
-Seguimos el mismo proceso de separación:
+Seguimos el mismo proceso de separación de variables y obtuvimos la solución general:
 
 \begin{align*}
     \frac{dT}{T-24} &= -0.166700\,dt, \\
@@ -342,7 +346,7 @@ La condición inicial no cambia, de modo que
     t=\frac{\ln(3/73)}{-0.166700}\approx19.15\ \text{minutos}.
 \end{equation*}
 
-El cambio no consiste solamente en reemplazar 18 por 24. Cerca de la temperatura segura, la pieza está apenas \(3\,^{\circ}\mathrm{C}\) por encima del nuevo ambiente, en lugar de \(9\,^{\circ}\mathrm{C}\) por encima del ambiente original. Con una diferencia térmica menor, el enfriamiento se vuelve más lento antes de llegar a \(27\,^{\circ}\mathrm{C}\).
+Como se aprecia, el cambio no es trivial. Cerca de la temperatura segura, la pieza está apenas \(3\,^{\circ}\mathrm{C}\) por encima del nuevo dato de temperatura ambiente, en lugar de \(9\,^{\circ}\mathrm{C}\). Con una diferencia térmica menor, el enfriamiento se vuelve más lento antes de llegar a \(27\,^{\circ}\mathrm{C}\).
 
 \begin{figure}[htbp]
     \centering
@@ -351,15 +355,45 @@ El cambio no consiste solamente en reemplazar 18 por 24. Cerca de la temperatura
     \label{fig:comparacion-escenarios}
 \end{figure}
 
-En la Figura~\ref{fig:comparacion-escenarios} vemos el efecto sobre todo cerca de la línea de \(27\,^{\circ}\mathrm{C}\): el caso de \(18\,^{\circ}\mathrm{C}\) la cruza a los \(13.03\) minutos y el de \(24\,^{\circ}\mathrm{C}\) a los \(19.15\) minutos. Bajo el supuesto de conservar \(k\), el cambio de ambiente añade \(6.12\) minutos.
+En la Figura~\ref{fig:comparacion-escenarios} se aprecia el efecto sobre todo cerca del rango de \(27\,^{\circ}\mathrm{C}\): el caso de \(18\,^{\circ}\mathrm{C}\) la cruza a los \(13.03\) minutos y el de \(24\,^{\circ}\mathrm{C}\) a los \(19.15\) minutos. Bajo el supuesto de conservar \(k\), el cambio de ambiente añade \(6.12\) minutos.
+
+Es importante destacar una limitación física en este escenario: bajo el supuesto matemático ideal de mantener \(k\) constante en \(0.1667\,\mathrm{min}^{-1}\), el tiempo obtenido es de \(19.15\) minutos. No obstante, en la realidad industrial, el coeficiente \(k\) no es enteramente independiente de la temperatura del entorno: varía por convección, de acuerdo con las propiedades físicas del material y del aire que lo rodea. Es razonable esperar que en un taller más caliente la \(k\) real sea ligeramente distinta a la calculada, por lo que \(19.15\) minutos representa en realidad un \textbf{límite inferior optimista}: la pieza real en el taller podría tardar algo más de tiempo en alcanzar la temperatura segura.
 
 \section{Conclusión e interpretación}
 
-Obtuvimos \(k=0.166700\,\mathrm{min}^{-1}\). Con el ambiente a \(18\,^{\circ}\mathrm{C}\), la regresión indica que el eje llega a \(27\,^{\circ}\mathrm{C}\) a los \(13.14\) minutos; la comprobación analítica da \(13.03\) minutos. Si el ambiente sube a \(24\,^{\circ}\mathrm{C}\) y conservamos el mismo \(k\), la función cambia a \(T(t)=24+73e^{-0.166700t}\) y el tiempo aumenta a \(19.15\) minutos.
+En este estudio se determinó el coeficiente de enfriamiento del acero para los ejes de transmisión, bajo las condiciones específicas del taller, en \(k=0.166700\,\mathrm{min}^{-1}\). Con una temperatura ambiental de \(18\,^{\circ}\mathrm{C}\), el modelo de regresión lineal estimó un tiempo seguro de manipulación de \(13.14\) minutos (\(13\) min \(8\) s), mientras que la resolución exacta por separación de variables arrojó un tiempo de \(13.03\) minutos (\(13\) min \(2\) s).
 
-Los resultados tienen sentido físico. La pieza pierde temperatura con mayor rapidez al inicio, cuando está mucho más caliente que el taller, y el enfriamiento se hace más lento al reducirse esa diferencia. A largo plazo, \(\displaystyle \lim_{t\to\infty}(\Tamb+Ce^{-kt})=\Tamb\); la solución se acerca al ambiente y no sigue disminuyendo por debajo de él. En el escenario de \(24\,^{\circ}\mathrm{C}\), esa cercanía con la temperatura segura explica los \(6.12\) minutos adicionales.
+A continuación se presenta la fundamentación analítica de estos resultados, organizada en tres ejes.
 
-\newpage
+\subsection{Comportamiento asintótico y estado estable}
+
+La solución analítica particular obtenida, \(T(t)=\Tamb+Ce^{-kt}\), describe el comportamiento térmico del sistema. Desde la teoría de ecuaciones diferenciales, el componente exponencial \(Ce^{-kt}\) funciona como el término transitorio del sistema, mientras que el parámetro constante \(\Tamb\) representa la solución de estado estable. Al evaluar el comportamiento asintótico mediante el límite cuando \(t\to\infty\), se observa que, dado que el coeficiente de enfriamiento es estrictamente positivo (\(k>0\)), la influencia de la condición inicial decae exponencialmente hasta anularse:
+\[
+\lim_{t\to\infty}\bigl(\Tamb+Ce^{-kt}\bigr)=\Tamb.
+\]
+Este límite matemático es consistente, a nivel físico (fuera del alcance de esta unidad de formación), con la Segunda Ley de la Termodinámica: garantiza que, dentro del modelo, la temperatura de la pieza no descenderá por debajo de la temperatura del ambiente que la rodea (\(18\,^{\circ}\mathrm{C}\) o \(24\,^{\circ}\mathrm{C}\), según el escenario).
+
+\subsection{Origen de la diferencia entre el resultado numérico y el analítico}
+
+La discrepancia de \(6.6\) segundos (\(\Delta t=0.11\) min) entre el enfoque numérico y el analítico se origina en el sesgo que introduce linealizar los datos antes de ajustarlos. Al aplicar mínimos cuadrados sobre la variable transformada \(y=\ln(T-\Tamb)\), el ajuste minimiza el error en la escala logarítmica y no en la escala térmica original. El modelo analítico, en cambio, impone con exactitud la condición inicial real de la pieza (\(C=T(0)-\Tamb=79\,^{\circ}\mathrm{C}\)), sacrificando el ajuste óptimo de los datos posteriores.
+
+\subsection{Efecto de la temperatura ambiente sobre la rapidez de enfriamiento}
+
+Al cambiar la temperatura del taller a \(24\,^{\circ}\mathrm{C}\), el tiempo necesario para alcanzar la temperatura segura de \(27\,^{\circ}\mathrm{C}\) aumenta a \(19.15\) minutos. Este incremento de \(6.12\) minutos se explica directamente a partir de la ecuación diferencial original,
+\[
+\frac{dT}{dt}=-k(T-\Tamb),
+\]
+donde la rapidez de enfriamiento es proporcional a la diferencia de temperaturas instantánea. Al acercarse la pieza a \(27\,^{\circ}\mathrm{C}\):
+
+\begin{itemize}
+    \item En el escenario de \(18\,^{\circ}\mathrm{C}\), la diferencia es \(27-18=9\,^{\circ}\mathrm{C}\).
+    \item En el escenario de \(24\,^{\circ}\mathrm{C}\), la diferencia es \(27-24=3\,^{\circ}\mathrm{C}\).
+\end{itemize}
+
+En consecuencia, la magnitud de \(\left|\frac{dT}{dt}\right|\) al llegar a la temperatura segura es tres veces menor en el taller cálido que en el taller frío. Al ser la rapidez de cambio tres veces más lenta, la curva de temperatura para \(24\,^{\circ}\mathrm{C}\) se aplana de forma más pronunciada antes de alcanzar el objetivo, lo cual explica el retraso en el tiempo de enfriamiento.
+
+\subsection{Limitaciones}
+
 Para este ejercicio el modelo funciona bien, pero parte de datos simulados y supone una temperatura uniforme en todo el eje, un ambiente constante y un solo valor de \(k\). En una planta real habría que medir el proceso y revisar esos supuestos antes de fijar un tiempo seguro de manipulación.
 
 \begin{thebibliography}{9}
